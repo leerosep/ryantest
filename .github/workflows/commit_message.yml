@@ -24,7 +24,7 @@ jobs:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1
         with:
-          pattern: '/*(Feat|feat|Fix|fix|Design|design|Style)*/'
+          pattern: '\s*Fixes\s*:*'
           #pattern: '^?.(Feat|feat|Fix|fix|Design|design|Style)'
           flags: 'gm'
           checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
