@@ -24,8 +24,8 @@ jobs:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1
         with:
-          #pattern: '\[[^]]+\] .+$'
-          pattern: '^?.(Feat|feat|Fix|fix|Design|design|Style)'
+          pattern: '\[[<^>]]+\](Feat|feat|Fix|fix|Design|design|Style).+$'
+          #pattern: '^?.(Feat|feat|Fix|fix|Design|design|Style)'
           flags: 'gm'
           checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
           accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
