@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Commit Type
-        uses: gsactions/commit-message-checker@v3
+        uses: gsactions/commit-message-checker@v1
         with:
           pattern: '\[[^]]+\] .+$'
           #pattern: '\[[(Feat|feat|Fix|fix|Design|design|Style|style|Refactor|refactor|Comment|comment|Docs|docs|Test|test|Chore|chore|Rename|rename|Remove|remove)\]] .+$'
@@ -38,7 +38,7 @@ jobs:
     env: 
       PR_NUMBER: ${{ github.event.number }}
     steps:
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
