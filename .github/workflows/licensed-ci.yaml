@@ -17,6 +17,6 @@ jobs:
       - name: Adding License
         uses: dephraiim/license-action@v1
         with:
-          LICENSE_TYPE: AGPL
+          LICENSE_TYPE: BSD
           AUTHOR: Ephraim Atta-Duncan
-          PROJECT_NAME: License Action
+          PROJECT_NAME: ryan test projext
