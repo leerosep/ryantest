@@ -1,11 +1,16 @@
-name: Check License Lines
+name: Update copyright year(s) in license file
+
 on:
-  push:
-    branches: [master]
+  schedule:
+    - cron: "* * * * *" # 03:00 AM on January 1
+
 jobs:
-  check-license-lines:
+  update-license-year:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Check License Lines
-      uses: kt3k/license_checker@v1.0.6
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: FantasticFiasco/action-update-license-year@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
