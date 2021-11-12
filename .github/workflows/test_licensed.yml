@@ -1,19 +1,11 @@
-name: Python license check action
-
-on:
-  push:
-    branches:
-      - master
-
-env:
-  DEP_PATH: requirements.txt
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out master
-        uses: actions/checkout@master
-
-      - name: Python License Check 
-        uses: aufdenpunkt/python-license-check-action@main
+steps:
+- uses: actions/checkout@v2
+  with:
+    fetch-depth: 0 # prefer to use a full fetch for licensed workflows
+- uses: jonabc/setup-licensed@v1
+  with:
+    version: '2.x' # required: supports matching based on string equivalence or node-semver range
+    install-dir: /path/to/install/at # optional: defaults to /usr/local/bin
+    github_token: # optional: allows users to make authenticated requests to GitHub's APIs
+- run: npm install # install dependencies in local environment
+- run: licensed list
