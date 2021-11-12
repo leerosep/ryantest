@@ -15,5 +15,5 @@ jobs:
       - name: Check out master
         uses: actions/checkout@master
 
-      - name: Python License Check
+      - name: Python License Check 
         uses: aufdenpunkt/python-license-check-action@main
