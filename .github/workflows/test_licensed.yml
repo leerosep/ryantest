@@ -1,14 +1,11 @@
-name: test_licensed
-
+name: Check License Lines
 on:
-  push: {branches: master}
-  pull_request: {branches: master}
-
+  push:
+    branches: [master]
 jobs:
-  test:
+  check-license-lines:
     runs-on: ubuntu-latest
-    name: Check licenses
     steps:
-      - uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm run licensed-check
+    - uses: actions/checkout@master
+    - name: Check License Lines
+      uses: kt3k/license_checker@v1.0.6
