@@ -1,7 +1,7 @@
 name: Verify cached license metadata
 
 on:
-  # run on pushes to main
+  # run on pushes to main 
   push:
     branches:
       - master
