@@ -17,6 +17,6 @@ jobs:
       - name: Adding License
         uses: dephraiim/license-action@v1
         with:
-          LICENSE_TYPE: MIT
+          LICENSE_TYPE: AGPL
           AUTHOR: Ephraim Atta-Duncan
           PROJECT_NAME: License Action
