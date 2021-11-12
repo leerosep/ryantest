@@ -1,7 +1,7 @@
 
 # ryantww   est@@@
 [![Workflow CodeQL Scan](https://github.com/gon1942/ryantest/actions/workflows/test_codeql.yml/badge.svg)](https://github.com/gon1942/ryantest/actions/workflows/test_codeql.yml)
-
+[![sonar](https://github.com/gon1942/ryantest/actions/workflows/test_jest_reporter.yml/badge.svg)](https://github.com/gon1942/ryantest/actions/workflows/test_jest_reporter.yml)
 
 ### Contributors
 
