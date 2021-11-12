@@ -1,11 +1,38 @@
-steps:
-- uses: actions/checkout@v2
-  with:
-    fetch-depth: 0 # prefer to use a full fetch for licensed workflows
-- uses: jonabc/setup-licensed@v1
-  with:
-    version: '2.x' # required: supports matching based on string equivalence or node-semver range
-    install-dir: /path/to/install/at # optional: defaults to /usr/local/bin
-    github_token: # optional: allows users to make authenticated requests to GitHub's APIs
-- run: npm install # install dependencies in local environment
-- run: licensed list
+name: Verify cached license metadata
+
+on:
+  # run on pushes to main
+  push:
+    branches:
+      - master
+  # run on all pull request events
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  # run on demand
+  workflow_dispatch:
+
+jobs:
+  licensed:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{github.ref}} # checkout branch not SHA
+        fetch-depth: 0
+
+    - run: npm install --production --ignore-scripts
+
+    - name: Run setup-licensed
+      uses: ./
+      with:
+        version: '3.x'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: jonabc/licensed-ci@v1
+      with:
+        workflow: branch
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cleanup_on_success: 'true'
