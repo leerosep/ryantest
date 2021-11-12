@@ -8,7 +8,12 @@ jobs:
         runs-on: ubuntu-latest
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         steps:
-            uses: ziishaned/jest-reporter-action@v0.0.1
-            with:
-              github-token: ${{ secrets.GITHUB_TOKEN }}
-              test-command: "yarn jest --coverage"
+            - uses: actions/checkout@master
+            - uses: codecov/codecov-action@v2
+              with:
+                token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # not required for public repos
+                files: ./coverage1.xml,./coverage2.xml # optional
+                flags: unittests # optional
+                name: codecov-umbrella # optional
+                fail_ci_if_error: true # optional (default = false)
+                verbose: true # optional (default = false)
