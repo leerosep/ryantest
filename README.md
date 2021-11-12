@@ -1,5 +1,6 @@
 
 # ryantest@@@
+[![Add License](https://github.com/gon1942/ryantest/actions/workflows/licensed-ci.yaml/badge.svg)](https://github.com/gon1942/ryantest/actions/workflows/licensed-ci.yaml)
 ### Contributors
 
 <table>
