@@ -1,50 +1,42 @@
-name: build test
+name: 'sonar'
 on:
-  push:
+  push: 
     branches:
-      - master
-    tags:
-      - '!*' # Do not execute on tags
-    paths:
-      - src/*
-      - test/*
-      - '*.json'
-      - yarn.lock
-  pull_request:
-    paths:
-      - '!*.MD'
+      - main
+  # See https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target for security implications.
+  pull_request_target:
+      types: [opened, synchronize, reopened]
+
 jobs:
-  test:
-    strategy:
-      matrix:
-        platform: [ ubuntu-latest, macOS-latest ]
-        node: [ '14', '12' ]
-    name: test/node ${{ matrix.node }}/${{ matrix.platform }}
-    runs-on: ${{ matrix.platform }}
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: ${{ matrix.node }}
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn build
-    - run: yarn test
-  coverage:
-    needs: [ test ]
-    name: coverage
+  build: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: '12'
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn build
-    - uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: yarn run coverage
-        debug: true
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get info
+        id: info
+        run: |
+          echo ::set-output name=repo_name::$(echo $GITHUB_REPOSITORY| cut -d / -f 2)
+          echo ::set-output name=repo_owner::$(echo $GITHUB_REPOSITORY| cut -d / -f 1)
+          
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.18.1
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run all checks and build
+        run: yarn run all
+
+      - name: SonarCloud Scan
+        if: matrix.node-version == 14 
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=${{ steps.info.outputs.repo_owner }}
+            -Dsonar.projectKey=${{ steps.info.outputs.repo_name }}
