@@ -25,10 +25,7 @@ jobs:
         with:
           node-version: 14.18.1
       - name: Install dependencies
-        run: yarn install
-
-      - name: Run all checks and build
-        run: yarn run all
+        run: npm run install
 
       - name: SonarCloud Scan
         if: matrix.node-version == 14 
