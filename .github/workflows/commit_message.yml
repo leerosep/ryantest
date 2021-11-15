@@ -29,7 +29,7 @@ jobs:
           flags: 'gm'
           checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
           accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
-          error: 'Your first line has to contain a commit type like 111 "Fix".'
+          error: 'Your first line has to contain a commit type like  "Fix".'
           
   run-if-fail:
     if: ${{ always() && (needs.check.result=='failure') }}
@@ -46,5 +46,7 @@ jobs:
               issue_number: ${{ env.PR_NUMBER }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '요청해 주신 PR이 COmmit Message을 위반합니다. \n커밋 메시지에 커밋 타입을 포함해 주세요. '
+              body: '요청해 주신 PR이 COmmit Message을 위반합니다. \n커밋 메시지에 커밋 타입을 포함해 주세요. 
+              \n ex) <Fix> : 버그수정
+              '
             })
